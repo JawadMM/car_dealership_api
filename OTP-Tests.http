@@ -1,0 +1,260 @@
+@CarDealershipApi_HostAddress = http://localhost:5274
+
+### ==============================================
+### OTP-PROTECTED AUTHENTICATION FLOW TESTS
+### ==============================================
+
+### 1. REGISTER WITH OTP - Step 1: Request OTP for Registration
+POST {{CarDealershipApi_HostAddress}}/api/auth/register/request-otp
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "password": "Password123!",
+  "confirmPassword": "Password123!",
+  "phoneNumber": "555-0123",
+  "address": "123 Main St",
+  "city": "Anytown",
+  "state": "CA",
+  "zipCode": "12345",
+  "role": "Customer"
+}
+
+### 2. REGISTER WITH OTP - Step 2: Verify OTP and Complete Registration
+# NOTE: Check console output for the 6-digit OTP code
+POST {{CarDealershipApi_HostAddress}}/api/auth/register/verify-otp
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "code": "123456",
+  "purpose": "Register"
+}
+
+### 3. LOGIN WITH OTP - Step 1: Request OTP for Login
+POST {{CarDealershipApi_HostAddress}}/api/auth/login/request-otp
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "Password123!"
+}
+
+### 4. LOGIN WITH OTP - Step 2: Verify OTP and Complete Login
+# NOTE: Check console output for the 6-digit OTP code
+POST {{CarDealershipApi_HostAddress}}/api/auth/login/verify-otp
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "code": "123456",
+  "purpose": "Login"
+}
+
+### 5. ADMIN LOGIN WITH OTP - Step 1: Request OTP for Admin Login
+POST {{CarDealershipApi_HostAddress}}/api/auth/login/request-otp
+Content-Type: application/json
+
+{
+  "email": "admin@dealership.com",
+  "password": "Admin123!"
+}
+
+### 6. ADMIN LOGIN WITH OTP - Step 2: Verify OTP and Complete Admin Login
+# NOTE: Check console output for the 6-digit OTP code
+POST {{CarDealershipApi_HostAddress}}/api/auth/login/verify-otp
+Content-Type: application/json
+
+{
+  "email": "admin@dealership.com",
+  "code": "123456",
+  "purpose": "Login"
+}
+
+### ==============================================
+### OTP-PROTECTED PURCHASE REQUEST FLOW
+### ==============================================
+
+### 7. PURCHASE REQUEST WITH OTP - Step 1: Request OTP for Purchase
+# NOTE: Requires customer authentication token
+POST {{CarDealershipApi_HostAddress}}/api/purchaserequests/request-otp
+Content-Type: application/json
+Authorization: Bearer YOUR_CUSTOMER_TOKEN_HERE
+
+{
+  "carId": 1,
+  "requestedPrice": 27000,
+  "message": "I'm interested in this vehicle. Is the price negotiable?"
+}
+
+### 8. PURCHASE REQUEST WITH OTP - Step 2: Verify OTP and Submit Purchase Request
+# NOTE: Check console output for the 6-digit OTP code
+POST {{CarDealershipApi_HostAddress}}/api/purchaserequests/verify-otp
+Content-Type: application/json
+Authorization: Bearer YOUR_CUSTOMER_TOKEN_HERE
+
+{
+  "email": "john.doe@example.com",
+  "code": "123456",
+  "purpose": "PurchaseRequest"
+}
+
+### ==============================================
+### OTP-PROTECTED VEHICLE UPDATE FLOW
+### ==============================================
+
+### 9. UPDATE VEHICLE WITH OTP - Step 1: Request OTP for Vehicle Update
+# NOTE: Requires admin authentication token
+POST {{CarDealershipApi_HostAddress}}/api/cars/1/update/request-otp
+Content-Type: application/json
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+{
+  "make": "Toyota",
+  "model": "Camry",
+  "year": 2023,
+  "color": "Silver",
+  "vin": "1HGBH41JXMN109186",
+  "price": 29500,
+  "mileage": 15000,
+  "transmission": "Automatic",
+  "fuelType": "Gasoline",
+  "isAvailable": true
+}
+
+### 10. UPDATE VEHICLE WITH OTP - Step 2: Verify OTP and Update Vehicle
+# NOTE: Check console output for the 6-digit OTP code
+PUT {{CarDealershipApi_HostAddress}}/api/cars/update/verify-otp
+Content-Type: application/json
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+{
+  "email": "admin@dealership.com",
+  "code": "123456",
+  "purpose": "UpdateVehicle"
+}
+
+### ==============================================
+### OTP UTILITY ENDPOINTS
+### ==============================================
+
+### 11. Generate OTP (Generic)
+POST {{CarDealershipApi_HostAddress}}/api/otp/generate
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "purpose": "Login",
+  "metadata": null
+}
+
+### 12. Verify OTP (Generic)
+POST {{CarDealershipApi_HostAddress}}/api/otp/verify
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "code": "123456",
+  "purpose": "Login"
+}
+
+### 13. Validate OTP Status
+GET {{CarDealershipApi_HostAddress}}/api/otp/validate?email=test@example.com&purpose=Login
+
+### ==============================================
+### DATA VIEWING ENDPOINTS (No OTP Required)
+### ==============================================
+
+### 14. Get All Available Cars
+GET {{CarDealershipApi_HostAddress}}/api/cars/available
+
+### 15. Get All Cars
+GET {{CarDealershipApi_HostAddress}}/api/cars
+
+### 16. Search Cars
+GET {{CarDealershipApi_HostAddress}}/api/cars/search?make=Toyota&maxPrice=30000
+
+### 17. Get All Users (Admin Only)
+# NOTE: Requires admin authentication token
+GET {{CarDealershipApi_HostAddress}}/api/auth/users
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+### 18. Get All Purchase Requests (Admin Only)
+# NOTE: Requires admin authentication token
+GET {{CarDealershipApi_HostAddress}}/api/purchaserequests
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+### 19. Get My Purchase Requests (Customer)
+# NOTE: Requires customer authentication token
+GET {{CarDealershipApi_HostAddress}}/api/purchaserequests/my-requests
+Authorization: Bearer YOUR_CUSTOMER_TOKEN_HERE
+
+### ==============================================
+### OTP TESTING SCENARIOS
+### ==============================================
+
+### 20. Test OTP Expiration (Wait 5+ minutes after generating OTP)
+POST {{CarDealershipApi_HostAddress}}/api/otp/verify
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "code": "123456",
+  "purpose": "Login"
+}
+
+### 21. Test Invalid OTP Code
+POST {{CarDealershipApi_HostAddress}}/api/otp/verify
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "code": "000000",
+  "purpose": "Login"
+}
+
+### 22. Test Maximum Attempts Exceeded (Try 4+ times with wrong code)
+POST {{CarDealershipApi_HostAddress}}/api/otp/verify
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "code": "111111",
+  "purpose": "Login"
+}
+
+### ==============================================
+### NOTES FOR TESTING
+### ==============================================
+# 
+# 1. OTP SIMULATION:
+#    - OTP codes are displayed in the console output
+#    - Each OTP expires after 5 minutes
+#    - Maximum 3 attempts per OTP
+#    - OTPs are automatically cleaned up every 10 minutes
+#
+# 2. REQUIRED ACTIONS FOR OTP-PROTECTED ENDPOINTS:
+#    - Login: Requires email validation via OTP
+#    - Register: Requires email validation via OTP  
+#    - Purchase Request: Requires user authentication + OTP
+#    - Update Vehicle: Requires admin authentication + OTP
+#
+# 3. AUTHENTICATION FLOW:
+#    - Step 1: Request OTP (provides email, gets OTP in console)
+#    - Step 2: Verify OTP (provides email + OTP code, gets JWT token)
+#    - Step 3: Use JWT token for subsequent API calls
+#
+# 4. SAMPLE DATA:
+#    - 12 vehicles pre-populated (IDs 1-12)
+#    - Admin user: admin@dealership.com / Admin123!
+#    - Various makes: Toyota, Honda, Ford, Tesla, BMW, etc.
+#
+# 5. ERROR HANDLING:
+#    - Invalid OTP codes return appropriate error messages
+#    - Expired OTPs are automatically rejected
+#    - Rate limiting prevents OTP spam
+#    - Proper HTTP status codes for all scenarios
+#
+

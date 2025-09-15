@@ -1,0 +1,186 @@
+@CarDealershipApi_HostAddress = http://localhost:5274
+
+### Get all cars
+GET {{CarDealershipApi_HostAddress}}/api/cars
+Accept: application/json
+
+### Get car by ID
+GET {{CarDealershipApi_HostAddress}}/api/cars/1
+Accept: application/json
+
+### Get available cars only
+GET {{CarDealershipApi_HostAddress}}/api/cars/available
+Accept: application/json
+
+### Search cars
+GET {{CarDealershipApi_HostAddress}}/api/cars/search?make=Toyota&maxPrice=30000
+Accept: application/json
+
+### Create new car
+POST {{CarDealershipApi_HostAddress}}/api/cars
+Content-Type: application/json
+
+{
+  "make": "BMW",
+  "model": "X5",
+  "year": 2024,
+  "color": "White",
+  "vin": "5UXCR6C05L9B12345",
+  "price": 55000,
+  "mileage": 5000,
+  "transmission": "Automatic",
+  "fuelType": "Gasoline"
+}
+
+### Update car
+PUT {{CarDealershipApi_HostAddress}}/api/cars/1
+Content-Type: application/json
+
+{
+  "make": "Toyota",
+  "model": "Camry",
+  "year": 2023,
+  "color": "Silver",
+  "vin": "1HGBH41JXMN109186",
+  "price": 29000,
+  "mileage": 15000,
+  "transmission": "Automatic",
+  "fuelType": "Gasoline",
+  "isAvailable": true
+}
+
+### Delete car
+DELETE {{CarDealershipApi_HostAddress}}/api/cars/1
+
+### Get all customers
+GET {{CarDealershipApi_HostAddress}}/api/customers
+Accept: application/json
+
+### Get customer by ID
+GET {{CarDealershipApi_HostAddress}}/api/customers/1
+Accept: application/json
+
+### Search customers
+GET {{CarDealershipApi_HostAddress}}/api/customers/search?name=Mike
+Accept: application/json
+
+### Create new customer
+POST {{CarDealershipApi_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@email.com",
+  "phoneNumber": "555-0301",
+  "address": "789 Pine St",
+  "city": "Springfield",
+  "state": "IL",
+  "zipCode": "62701"
+}
+
+### Update customer
+PUT {{CarDealershipApi_HostAddress}}/api/customers/1
+Content-Type: application/json
+
+{
+  "firstName": "Mike",
+  "lastName": "Wilson",
+  "email": "mike.wilson@email.com",
+  "phoneNumber": "555-0201",
+  "address": "123 Main St",
+  "city": "Anytown",
+  "state": "CA",
+  "zipCode": "12345"
+}
+
+### Delete customer
+DELETE {{CarDealershipApi_HostAddress}}/api/customers/1
+
+### Get all employees
+GET {{CarDealershipApi_HostAddress}}/api/employees
+Accept: application/json
+
+### Get employee by ID
+GET {{CarDealershipApi_HostAddress}}/api/employees/1
+Accept: application/json
+
+### Get active employees only
+GET {{CarDealershipApi_HostAddress}}/api/employees/active
+Accept: application/json
+
+### Create new employee
+POST {{CarDealershipApi_HostAddress}}/api/employees
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane.smith@dealership.com",
+  "phoneNumber": "555-0103",
+  "position": "Sales Representative",
+  "salary": 50000
+}
+
+### Update employee
+PUT {{CarDealershipApi_HostAddress}}/api/employees/1
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@dealership.com",
+  "phoneNumber": "555-0101",
+  "position": "Sales Manager",
+  "salary": 80000,
+  "isActive": true
+}
+
+### Delete employee
+DELETE {{CarDealershipApi_HostAddress}}/api/employees/1
+
+### Get all sales
+GET {{CarDealershipApi_HostAddress}}/api/sales
+Accept: application/json
+
+### Get sale by ID
+GET {{CarDealershipApi_HostAddress}}/api/sales/1
+Accept: application/json
+
+### Get sales by date range
+GET {{CarDealershipApi_HostAddress}}/api/sales/date-range?startDate=2024-01-01&endDate=2024-12-31
+Accept: application/json
+
+### Get sales by employee
+GET {{CarDealershipApi_HostAddress}}/api/sales/employee/1
+Accept: application/json
+
+### Get sales by customer
+GET {{CarDealershipApi_HostAddress}}/api/sales/customer/1
+Accept: application/json
+
+### Create new sale
+POST {{CarDealershipApi_HostAddress}}/api/sales
+Content-Type: application/json
+
+{
+  "carId": 1,
+  "customerId": 2,
+  "employeeId": 2,
+  "salePrice": 27000,
+  "paymentMethod": "Cash",
+  "notes": "Customer paid in full"
+}
+
+### Update sale
+PUT {{CarDealershipApi_HostAddress}}/api/sales/1
+Content-Type: application/json
+
+{
+  "salePrice": 44000,
+  "paymentMethod": "Bank Loan",
+  "notes": "Customer traded in 2019 Honda Accord - Updated"
+}
+
+### Delete sale
+DELETE {{CarDealershipApi_HostAddress}}/api/sales/1
