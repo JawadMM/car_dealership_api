@@ -50,7 +50,7 @@ A comprehensive .NET 9 ASP.NET Core Web API for a car dealership system with Rea
 
    ```bash
    git clone <repository-url>
-   cd car-dealership-api
+   cd car_dealership_api
    ```
 
 2. **Restore dependencies and run**
@@ -69,7 +69,7 @@ A comprehensive .NET 9 ASP.NET Core Web API for a car dealership system with Rea
 1. **Navigate to UI folder**
 
    ```bash
-   cd car-dealership-ui
+   cd car_dealership_ui
    ```
 
 2. **Install dependencies and start**
