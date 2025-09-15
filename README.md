@@ -24,11 +24,6 @@ A comprehensive .NET 9 ASP.NET Core Web API for a car dealership system with Rea
   - Admin approval/rejection workflow
   - Automatic vehicle status updates upon approval
 
-- **User Management**
-  - User registration and profile management
-  - Admin user oversight capabilities
-  - Role-based access control
-
 ## Tech Stack
 
 - **Backend**: ASP.NET Core 9, Entity Framework Core
