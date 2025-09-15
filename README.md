@@ -24,6 +24,11 @@ A comprehensive .NET 9 ASP.NET Core Web API for a car dealership system with Rea
   - Admin approval/rejection workflow
   - Automatic vehicle status updates upon approval
 
+- **User Management**
+  - User registration and profile management
+  - Admin user oversight capabilities
+  - Role-based access control
+
 ## Tech Stack
 
 - **Backend**: ASP.NET Core 9, Entity Framework Core
@@ -45,7 +50,7 @@ A comprehensive .NET 9 ASP.NET Core Web API for a car dealership system with Rea
 
    ```bash
    git clone <repository-url>
-   cd car_dealership_api
+   cd car-dealership-api
    ```
 
 2. **Restore dependencies and run**
@@ -154,8 +159,6 @@ OTP verification is required for these sensitive operations:
 
 - OTP expiration: 5 minutes
 - Attempt limits on OTP verification
-- Background cleanup of expired OTPs
-- CORS configured for local development
 
 ## Architecture Decisions
 
@@ -191,4 +194,3 @@ OTP verification is required for these sensitive operations:
 - All sensitive operations require OTP verification
 - Admin actions automatically update vehicle availability
 - Password validation occurs before OTP generation for login
-- System designed for demonstration and development purposes
